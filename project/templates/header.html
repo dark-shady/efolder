@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- Template by Quackit.com -->
+<!--Gatan Blue: 0db0f6 -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+    	var url = window.location;
+    	// Will only work if string in href matches with location
+    	$('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+    	// Will also work for relative and absolute hrefs
+    	$('ul.nav a').filter(function() {
+    	    return this.href == url;
+    	}).parent().addClass('active');
+    });
+
+      $('.collapse').on('show.bs.collapse', function () {
+          $('.collapse.in').collapse('hide');
+      });
+  </script>
+  <script>
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.data-target = $(this).data("data-target");
+        });
+    });
+  </script>
+  <!-- jQuery -->
+  <script src="/static/js/bootstrap.min.js"></script>
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                	<span class="glyphicon glyphicon-fire"></span>
+                	E-Folder
+                </a>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/index">Home</a>
+                    </li>
+                    <li>
+                        <a href="/view">View</a>
+                    </li>
+                    <li>
+                        <a href="/add">Add</a>
+                    </li>
+          					<li class="dropdown">
+          						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">E-Folder Serial Number <span class="caret"></span></a>
+          						<ul class="dropdown-menu" aria-labelledby="about-us">
+          							<li><a href="create">Create</a></li>
+          							<li><a href="#">Print</a></li>
+          						</ul>
+          					</li>
+                </ul>
+
+				<!-- Search -->
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+				</form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- Heading -->
+      <div class="row">
+
+    {% block content %}{% endblock %}
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+	<footer>
+    <div class="small-print">
+      <div class="container">
+        <p><a href="#">Link</a> | <a href="#">Link</a> | <a href="#">Link</a></p>
+        <p>Copyright &copy; Gatan 2018 </p>
+      </div>
+    </div>
+	</footer>
+
+
+</body>
+</html>
