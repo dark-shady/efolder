@@ -1,4 +1,7 @@
 from flask import Flask
+from flask_pymongo import PyMongo
+
+
 
 
 
@@ -10,9 +13,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('config.py')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
-app.config.update(dict(
-    SECRET_KEY="powerful secretkey",
-    WTF_CSRF_SECRET_KEY="a csrf secret key"
-))
+
+mongo = PyMongo(app)
 
 from project import routes

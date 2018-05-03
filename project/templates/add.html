@@ -8,49 +8,69 @@
           </h1>
           <form action = "" method = "POST"
          enctype = "multipart/form-data">
-          {{ form.csrf }}
+          {{ form.csrf_token }}
             <div class="form-group row">
-              <label for="userid" class="col-sm-2 col-form-label">User ID</label>
+              {{ form.userid.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="userid" name="userid" placeholder="User ID">
+                {{ form.userid(class="form-control", placeholder="User ID") }}
+                {% for error in form.userid.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
             <div class="form-group row">
-              <label for="product" class="col-sm-2 col-form-label">Product</label>
+              {{ form.product.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-2">
                 {{ form.product(class="form-control") }}
+                {% for error in form.product.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
             <div class="form-group row">
-              <label for="partnumber" class="col-sm-2 col-form-label">Part Number</label>
+              {{ form.partnumber.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="partnumber" name="partnumber" placeholder="Part Number">
+                {{ form.partnumber(class="form-control", placeholder="Part Number") }}
+                {% for error in form.partnumber.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
             <div class="form-group row">
-              <label for="serialnumber" class="col-sm-2 col-form-label">Serial Number</label>
+              {{ form.serialnumber.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="serialnumber" name="serialnumber" placeholder="Serial Number">
+                {{ form.serialnumber(class="form-control", placeholder="Serial Number") }}
+                {% for error in form.serialnumber.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
             <div class="form-group row">
-              <label for="designator" class="col-sm-2 col-form-label">Designator</label>
+             {{ form.designator.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="designator" name="designator" placeholder="Camera 2, W7, etc">
+                {{ form.designator(class="form-control", placeholder="Designator") }}
+                {% for error in form.designator.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
-
             <div class="form-group row">
-              <label for="notes" class="col-sm-2 col-form-label">Note</label>
+             {{ form.notes.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-5">
-                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                {{ form.notes(class="form-control", placeholder="Notes") }}
+                {% for error in form.notes.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
               </div>
             </div>
             <div class="form-group row">
-              <label for="uploadfile" class="col-sm-2 col-form-label">Attachment</label>
+             {{ form.uploadfile.label(class="col-sm-2 col-form-label") }}
               <div class="col-sm-3">
                 <label class="custom-file">
-                  <input type="file" name="uploadfile" id="uploadfile" class="custom-file-input">
+                {{ form.uploadfile(class="custom-file-input") }}
+                {% for error in form.uploadfile.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
                   <span class="custom-file-control"></span>
                 </label>
               </div>

@@ -2,11 +2,7 @@ import os
 from flask import render_template, request, redirect, url_for
 from project import app, forms
 from werkzeug.utils import secure_filename
-from flask_pymongo import PyMongo
-
-
-mongo = PyMongo(app)
-
+from . import mongo
 
 @app.route('/index')
 @app.route('/')
@@ -19,6 +15,7 @@ def add():
     form = forms.AddForm()
 
     if form.validate_on_submit():
+        print("Validating")
         # check if the post request has the file part
         file = None
         if 'file' in request.files:
@@ -30,6 +27,7 @@ def add():
         return redirect(url_for('view'))
 
     else:
+
         return render_template('add.html', title='E-Folder - Add', form=form)
 
 
