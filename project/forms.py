@@ -8,14 +8,14 @@ def check_userid(form, field):
     if mongo.db.users.find_one({"userid":field.data}):
         print("User exists!")
         return True
-    raise ValidationError('User doesn\'t exist')
+    raise ValidationError('User ID doesn\'t exist')
     return False
 
 
 class AddForm(FlaskForm):
     userid = StringField("User ID: ", validators=[DataRequired(), check_userid])
     product = SelectField("Product: ", validators=[DataRequired()],
-              choices=[('oneview', 'Oneview')])
+              choices=[('Oneview', 'Oneview')])
     partnumber = StringField("Part Number: ")
     serialnumber = StringField("Serial Number: ")
     designator = StringField("Designator: ")

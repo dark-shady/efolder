@@ -2,9 +2,6 @@ from flask import Flask
 from flask_pymongo import PyMongo
 
 
-
-
-
 UPLOAD_FOLDER = '/home/corey/Desktop/efolder/project/static/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
