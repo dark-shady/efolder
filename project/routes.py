@@ -4,6 +4,14 @@ from project import app, forms
 from werkzeug.utils import secure_filename
 from . import mongo
 from bson.objectid import ObjectId
+import datetime
+
+def userid_to_name(userid):
+    result = mongo.db.users.find_one({'userid':userid})
+    return result['name']
+app.add_template_global(userid_to_name, name='userid_to_name')
+
+
 
 @app.route('/index')
 @app.route('/')
@@ -31,12 +39,18 @@ def add():
 
         print("Inserting")
         data = request.form.to_dict()
+
+        # Add current datetime to dict
+        data['datetime'] = datetime.datetime.now().strftime("%y-%m-%d %H:%M")
+
+        # Remove CSRF token from dict
         data.pop('csrf_token', None)
 
+        # Actually submit data to mongodb
         result = mongo.db.efolder_data.insert_one(data)
-        print(result.inserted_id)
 
-        if filename:
+        # If file attachedd, edit db entry to include filename
+        if file:
             os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], str(result.inserted_id)))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(result.inserted_id), filename))
             mongo.db.efolder_data.update({"_id": ObjectId(result.inserted_id)},
@@ -52,6 +66,7 @@ def add():
 @app.route('/view')
 def view():
     table_data = mongo.db.efolder_data.find()
+
     return render_template('view.html', title='E-Folder - View', table_data = table_data)
 
 

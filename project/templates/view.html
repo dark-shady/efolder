@@ -2,10 +2,6 @@
 
 {% block content %}
 
-{% for row in table_data %}
-    row {{ row["_id"] }} id
-{% endfor %}
-
 
 
     <!-- Content -->
@@ -22,48 +18,39 @@
                       <tr>
                           <th>Entry #</th>
                           <th>Date</th>
-                          <th>Description</th>
-                          <th>Expand</td>
+                          <th>Part Number</th>
+                          <th>Serial Number</th>
+                          <th>Designator</th>
+                          <th>Product</th>
+                          <th>Submitted by</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td>1</td>
-                          <td>05 May 2013</td>
-                          <td>Add note</td>
-                          <td><a href="#" data-toggle="collapse" data-target=".demo1">Expand</a></td>
+    {% for row in table_data %}
+                      <tr class='clickable-row' style="cursor:pointer" data-toggle="collapse" data-target=".row{{ loop.index }}">
+                          <td>{{ row["_id"] }}</td>
+                          <td>{{ row['datetime'] }}</td>
+                          <th>{{ row['partnumber'] }}</th>
+                          <th>{{ row['serialnumber'] }}</th>
+                          <th>{{ row['designator'] }}</th>
+                          <th>{{ row['product'] }}</th>
+                          <th>{{ userid_to_name(row['userid']) }}</th>
                       </tr>
                       <tr>
-                          <td class="hiddenRow" colspan="4">
-                              <div class="collapse demo1">Changed this component.  Leak rate of 10 x 10-10</div>
+                          <td class="hiddenRow" colspan="6">
+                              <div class="collapse row{{ loop.index }}">
+                                {{ row['notes']}} <br>
+                              {% if row['filename'] is defined %}
+                                Attachment: <a href="/static/uploads/{{ row['_id'] }}/{{ row['filename'] }}">{{ row['filename'] }}</a>
+                              {% endif %}
+                              </div>
                           </td>
+                      </tr>
 
-                      </tr>
-                      <tr data-toggle="collapse" data-target="#demo2">
-                          <td>2</td>
-                          <td>05 May 2013</td>
-                          <td>Add note</td>
-                          <td><a href="#" data-toggle="collapse" data-target=".demo2">Expand</a></td>
-                      </tr>
-                      <tr>
-                          <td colspan="6" class="hiddenRow">
-                              <div id="demo2" class="collapse">Demo2</div>
-                          </td>
-                      </tr>
-                      <tr data-toggle="collapse" data-target="#demo3">
-                          <td>3</td>
-                          <td>05 May 2013</td>
-                          <td>Edit note</td>
-                          <td><a href="#" data-toggle="collapse" data-target=".demo3">Expand</a></td>
-                      </tr>
-                      <tr>
-                          <td colspan="6" class="hiddenRow">
-                              <div id="demo3" class="collapse">Demo3</div>
-                          </td>
-                      </tr>
+
+    {% endfor %}
+
                   </tbody>
               </table>
             </div>
-
-
 {% endblock %}
