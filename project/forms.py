@@ -15,7 +15,16 @@ def check_userid(form, field):
 class AddForm(FlaskForm):
     userid = StringField("User ID: ", validators=[DataRequired(), check_userid])
     product = SelectField("Product: ", validators=[DataRequired()],
-              choices=[('Oneview', 'Oneview')])
+              choices=[('Oneview', 'Oneview'),
+                       ('K2', 'K2'),
+                       ('K3', 'K3'),
+                       ('Rio', 'Rio'),
+                       ('Quantum', 'Quantum'),
+                       ('Orius', 'Orius'),
+                       ('GIB', 'GIB'),
+                       ('Abruzzi', 'Abruzzi'),
+                       ('Digiscan', 'Digiscan'),
+                       ('Sensor', 'Sensor')])
     partnumber = StringField("Part Number: ")
     serialnumber = StringField("Serial Number: ")
     designator = StringField("Designator: ")
