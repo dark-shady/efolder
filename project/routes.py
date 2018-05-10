@@ -74,6 +74,37 @@ def view():
 def create():
     return render_template('create.html', title='E-Folder - Create')
 
+@app.route('/search/<searchterm>')
+@app.route('/search', methods=['POST'])
+def search(searchterm=None):
+    if request.method == "POST":
+         searchterm = request.form['searchterm']
+    if searchterm:
+        query = {
+            "$or": [
+                {
+                    "designator": { "$regex": searchterm, "$options": "i" }
+                },
+                {
+                    "serialnumber": { "$regex": searchterm, "$options": "i" }
+                },
+                {
+                    "partnumber": { "$regex": searchterm, "$options": "i" }
+                },
+                {
+                    "notes": { "$regex": searchterm, "$options": "i" }
+                },
+                {
+                    "product": { "$regex": searchterm, "$options": "i" }
+                }
+            ]
+        }
+        table_data = mongo.db.efolder_data.find(query)
+    else:
+        table_data = mongo.db.efolder_data.find()
+
+    return render_template('search.html', title='E-Folder - Search', searchterm= searchterm, table_data = table_data)
+
 
 def allowed_file(filename):
     return '.' in filename and \

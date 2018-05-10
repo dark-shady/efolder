@@ -12,44 +12,6 @@
               </h1>
           </div>
             <div class="col-lg-12">
-              <table class="table table-condensed" style="border-collapse:collapse;">
-                  <thead>
-                      <tr>
-                          <th>Entry #</th>
-                          <th>Date</th>
-                          <th>Part Number</th>
-                          <th>Serial Number</th>
-                          <th>Designator</th>
-                          <th>Product</th>
-                          <th>Submitted</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-    {% for row in table_data %}
-                      <tr class='clickable-row' style="cursor:pointer" data-toggle="collapse" data-target=".row{{ loop.index }}">
-                          <td width="12%">{{ row["_id"] }}</td>
-                          <td width="12%">{{ row['datetime'] }}</td>
-                          <td width="12%">{{ row['partnumber'] }}</td>
-                          <td width="12%">{{ row['serialnumber'] }}</td>
-                          <td width="12%">{{ row['designator'] }}</td>
-                          <td width="12%">{{ row['product'] }}</td>
-                          <td width="12%">{{ userid_to_name(row['userid']) }}</td>
-                      </tr>
-                      <tr>
-                          <td class="hiddenRow" colspan="7">
-                              <div class="collapse row{{ loop.index }}">
-                                <table><tr><td width="20%"></td><td>{{ row['notes']}}</td></tr>
-                              {% if row['filename'] is defined %}
-                                <tr><td width="20%"></td><td>Attachment: <a href="/static/uploads/{{ row['_id'] }}/{{ row['filename'] }}">{{ row['filename'] }}</a></td></tr>
-                              {% endif %}
-                              </div>
-                          </td>
-                      </tr>
-
-
-    {% endfor %}
-
-                  </tbody>
-              </table>
+            {% include "display_data.html" %}
             </div>
 {% endblock %}
