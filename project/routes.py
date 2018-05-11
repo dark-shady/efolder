@@ -12,7 +12,6 @@ def userid_to_name(userid):
 app.add_template_global(userid_to_name, name='userid_to_name')
 
 
-
 @app.route('/index')
 @app.route('/')
 def index():
@@ -65,7 +64,7 @@ def add():
 
 @app.route('/view')
 def view():
-    table_data = mongo.db.efolder_data.find()
+    table_data = mongo.db.efolder_data.find().sort('datetime',-1)
 
     return render_template('view.html', title='E-Folder - View', table_data = table_data)
 
@@ -73,6 +72,7 @@ def view():
 @app.route('/create')
 def create():
     return render_template('create.html', title='E-Folder - Create')
+
 
 @app.route('/search/<searchterm>')
 @app.route('/search', methods=['POST'])
@@ -99,9 +99,9 @@ def search(searchterm=None):
                 }
             ]
         }
-        table_data = mongo.db.efolder_data.find(query)
+        table_data = mongo.db.efolder_data.find(query).sort('datetime',-1)
     else:
-        table_data = mongo.db.efolder_data.find()
+        table_data = mongo.db.efolder_data.find().sort('datetime',-1)
 
     return render_template('search.html', title='E-Folder - Search', searchterm= searchterm, table_data = table_data)
 

@@ -24,7 +24,13 @@
                       <tr>
                           <td class="hiddenRow" colspan="7">
                               <div class="collapse row{{ loop.index }}">
-                                <table width="100%"><tr><td width="10%"></td><td><b>{{ row['notes']}}</b></td></tr>
+                                <table width="100%"><tr><td width="10%"></td><td><b>
+                                  {% set notes = row['notes'].split('\n') %}
+                                    {% for notes_line in notes %}
+                                      {{ notes_line }}
+                                      <br>
+                                    {% endfor %}
+                                </b></td></tr>
                               {% if row['filename'] is defined %}
                                 <tr><td width="10%"></td><td>Attachment: <a href="/static/uploads/{{ row['_id'] }}/{{ row['filename'] }}">{{ row['filename'] }}</a></td></tr>
                               {% endif %}
