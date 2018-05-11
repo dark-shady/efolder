@@ -95,7 +95,7 @@ def search(searchterm=None):
                     "notes": { "$regex": searchterm, "$options": "i" }
                 },
                 {
-                    "product": { "$regex": searchterm, "$options": "i" }
+                    "product": { "$regex": "^" + searchterm + "$", "$options": "i" }
                 }
             ]
         }
