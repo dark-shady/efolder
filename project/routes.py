@@ -106,6 +106,44 @@ def search(searchterm=None):
     return render_template('search.html', title='E-Folder - Search', searchterm= searchterm, table_data = table_data)
 
 
+@app.route('/edit/<entry_id>', methods=['GET', 'POST'])
+def edit(entry_id):
+    error_msg = ""
+    #Check if entry_id is correct format
+    if not ObjectId.is_valid(entry_id):
+        error_msg = "This is not a valid entry ID format"
+
+    result = mongo.db.efolder_data.find_one({"_id": ObjectId(entry_id)})
+    #Check if entry ID exists in DB
+    if result == None:
+        error_msg = "This is not a valid entry ID"
+
+    if error_msg:
+        return render_template('error.html', error_msg = error_msg)
+
+    #Create form - remove userid and add entry_id
+    result.pop('userid')
+    result['entry_id'] = entry_id
+    form = forms.EditForm(data=result)
+    if request.method == "POST" and form.validate():
+        #Validating submitted information
+        print("Validating")
+
+        mongo.db.efolder_data.update_one({"_id":ObjectId(form.entry_id.data)},
+                                           {"$set":
+                                             {"product":form.product.data,
+                                             "serialnumber":form.serialnumber.data,
+                                             "partnumber":form.partnumber.data,
+                                             "designator":form.designator.data,
+                                             "notes":form.notes.data
+                                             }
+                                           })
+
+        return render_template('index.html')
+    else:
+        return render_template('edit.html',  title='E-Folder - Edit', form=form, entry_id=entry_id)
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
